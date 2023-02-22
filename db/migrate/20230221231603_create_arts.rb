@@ -3,6 +3,8 @@ class CreateArts < ActiveRecord::Migration[7.0]
     create_table :arts do |t|
       t.string :title
 
+      
+
       t.timestamps
     end
   end
