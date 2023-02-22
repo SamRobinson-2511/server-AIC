@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::API
     
-
     def current_viewer
         auth_token = request.headers['auth-token']
         if auth_token
@@ -16,5 +15,10 @@ class ApplicationController < ActionController::API
         unless current_viewer 
             render json: { errors: ['You must be logged in to do that']}, status: :unauthorized
         end
+    end
+
+    def fetch_arts
+        response = JSON.parse(RestClient.get("https://api.artic.edu/api/v1/artworks"))
+        render json: response, status: :ok
     end
 end
