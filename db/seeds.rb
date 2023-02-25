@@ -23,3 +23,6 @@ visit1 = Visit.create!(viewer_id: Viewer.first.id, date: 20221204, comment: 'eh'
 visit2 = Visit.create!(viewer_id: Viewer.first.id, date: 20221204, comment: 'eh', arts_id: Art.second.id)
 visit3 = Visit.create!(viewer_id: Viewer.first.id, date: 20221204, comment: 'eh', arts_id: Art.first.id)
 puts 'visits seeded'
+
+gallery1 = Gallery.create!(title: 'Modern', description:'modern french art', viewer_id: v1.id, art_id: a1.id)
+gallery1 = Gallery.create!(title: 'Modern', description:'modern french art', viewer_id: v1.id, art_id: a2.id)
