@@ -12,6 +12,7 @@ class Viewer < ApplicationRecord
         /x
     validates :password, presence: true, on: create, format: PASSWORD_REQUIREMENTS  
     validates :zip_code, presence: true
+    
 
     has_many :visits, dependent: :destroy
     has_many :arts, through: :visits

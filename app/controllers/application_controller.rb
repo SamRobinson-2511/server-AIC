@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     
     def current_viewer
         auth_token = request.headers['auth-token']
@@ -17,14 +18,9 @@ class ApplicationController < ActionController::API
         end
     end
 
-    def fetch_arts
-        fields = "title,artist_display,id,image_id,is_on_view"
-        response = JSON.parse(RestClient.get("https://api.artic.edu/api/v1/artworks?fields=#{fields}"))
-        render json: response, status: :ok
-    end
-    def search_arts
-        search = params[:search]
-        response = JSON.parse(RestClient.get("https://api.artic.edu/api/v1/artworks/fields=title/search?q=#{search}))
-        render json: response, status: :ok
+    private 
+    def record_not_found record
+        render json: { errors: ["|Sorry, #{record.model} was not found"]}, 
+        status: :not_found
     end
 end
