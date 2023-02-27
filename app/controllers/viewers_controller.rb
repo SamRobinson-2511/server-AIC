@@ -22,11 +22,7 @@ class ViewersController < ApplicationController
         render json: viewer, status: :accepted
     end
 
-    def destroy
-        viewer = Viewer.find(params[:id])
-        viewer.destroy
-        head :no_content
-    end
+  
 
     private
     def viewer_params

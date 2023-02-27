@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get '/viewers/:id', to: 'viewers#show'
   post '/viewers', to: 'viewers#create'
   patch '/viewers/:id', to: 'viewers#update'
-  delete '/viewers/:id', to: 'viewers#destroy'
+  
 
   resources :arts, only: [:index, :show]
 
@@ -16,6 +16,10 @@ Rails.application.routes.draw do
   post 'galleries/new', to: 'galleries#create'
   patch 'galleries/:id', to: 'galleries#update'
   delete 'galleries/:id', to: 'galleries#destroy'
+
+  namespace :admin do
+    delete '/viewers/:id', to: 'viewers#destroy'
+  end
 
   # Defines the root path route ("/")
   # root "articles#index"
