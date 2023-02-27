@@ -10,8 +10,18 @@ class SessionsController < ApplicationController
         end
     end
 
-    def logout
+    def register
+        @viewer = Viewer.create!(viewer_params)
+        render json: viewer 
+    end
+
+    def destroy
         reset_session
         render json: {status: 200, logged_out: true}
+    end
+
+    private 
+    def viewer_params
+        params.require(:session).permit(:first_name, :last_name, :email, :password, :zip_code)
     end
 end

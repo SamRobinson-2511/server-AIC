@@ -1,24 +1,36 @@
 class ViewersController < ApplicationController
-rescue_from ActiveRecord::
+    rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
+
+    def index 
+        render json: Viewer.all, status: :ok
+    end
+    
+    def show
+        viewer = Viewer.find(params[:id])
+        render json: viewer, status: 200
+    end
     
     def create
-        viewer = User.create!(viewer_params)
+        viewer = Viewer.create!(viewer_params)
         render json: viewer, status: :created
+        
     end
 
     def update 
-        viewer = = User.find(user_params)
-        render json: viewer, status: :updated
+        viewer = Viewer.find(params[:id])
+        viewer.update!(viewer_params)
+        render json: viewer, status: :accepted
     end
 
-    def show
-        viewer = User.find(user_params)
-        render json: viewer, status: 200
+    def destroy
+        viewer = Viewer.find(params[:id])
+        viewer.destroy
+        head :no_content
     end
 
     private
-    def user_params
-        params.require(:user).permit(:first_name, :last_name, :email, :password, :zip_code)
+    def viewer_params
+        params.permit(:first_name, :last_name, :email, :password, :zip_code)
     end
     
     def render_unprocessable_entity invalid
@@ -26,3 +38,4 @@ rescue_from ActiveRecord::
         status: :unprocessable_entity
     end
 end
+

@@ -16,5 +16,8 @@ class Viewer < ApplicationRecord
 
     has_many :visits, dependent: :destroy
     has_many :arts, through: :visits
+
+    has_many :galleries, dependent: :destroy
+    has_many :arts, through: :galleries
   
 end
