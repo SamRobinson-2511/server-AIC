@@ -1,9 +1,5 @@
 class ViewersController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
-
-    def index 
-        render json: Viewer.all, status: :ok
-    end
     
     def show
         viewer = Viewer.find(params[:id])
@@ -13,16 +9,22 @@ class ViewersController < ApplicationController
     def create
         viewer = Viewer.create!(viewer_params)
         render json: viewer, status: :created
-        
     end
+
+    def login
+        viewer = Viewer.find_by(email:params[:email])
+        if viewer && viewer.authenticate(params[:password])
+            render json: viewer, status: :ok
+        else 
+            render json: {errors: 'Incorrect Username or Password'}, status: :unauthorized
+        end 
+    end 
 
     def update 
         viewer = Viewer.find(params[:id])
         viewer.update!(viewer_params)
         render json: viewer, status: :accepted
     end
-
-  
 
     private
     def viewer_params
