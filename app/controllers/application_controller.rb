@@ -1,6 +1,15 @@
 class ApplicationController < ActionController::API
 rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     
+
+    def welcome
+        render json: {welcome: 'hello world'}
+    end
+
+    def name
+        render json: {greeting: "Hello, #{params[:name]}"}
+    end
+
     def current_viewer
         auth_token = request.headers['auth-token']
         if auth_token
@@ -20,7 +29,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
     private 
     def record_not_found record
-        render json: { errors: ["|Sorry, #{record.model} was not found"]}, 
+        render json: { errors: ["Sorry, #{record.model} was not found"]}, 
         status: :not_found
     end
 end
