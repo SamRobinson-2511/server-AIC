@@ -1,9 +1,6 @@
-
-
 class ArtsController < ApplicationController
 
 
-    
     def index
         fields = "title,artist_display,id,image_id,is_on_view"
         response = JSON.parse(RestClient.get("https://api.artic.edu/api/v1/artworks?fields=#{fields}"))
