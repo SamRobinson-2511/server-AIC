@@ -33,5 +33,5 @@ puts 'viewers seeded'
 # puts 'visits seeded'
 
 puts 'seeding galleries'
-g1 = Gallery.create!(title: 'Modern', description:'modern french art')
+g1 = Gallery.create!(title: 'Modern', description:'modern french art', viewer_id: v1.id)
 puts 'galleries seeded'

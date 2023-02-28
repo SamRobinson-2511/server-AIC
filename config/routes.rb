@@ -1,12 +1,10 @@
 Rails.application.routes.draw do
-  
 
-  get '/welcome', to: 'application#welcome'
-  get '/welcome/:name', to: 'application#name'
-  # get '/viewers', to: 'viewers#index'
+  # get '/welcome', to: 'application#welcome'
+  # get '/welcome/:name', to: 'application#name'
   get '/viewers/:id', to: 'viewers#show'
   post '/viewers', to: 'viewers#create'
-  patch '/viewers/:id', to: 'viewers#update'
+  patch '/viewers/:id/edit', to: 'viewers#update'
   
   resources :arts, only: [:index, :show]
 
@@ -15,10 +13,6 @@ Rails.application.routes.draw do
   post 'galleries/new', to: 'galleries#create'
   patch 'gallery/:id/edit', to: 'galleries#update'
   delete 'galleries/:id', to: 'galleries#destroy'
-
-  namespace :admin do
-    delete '/viewers/:id', to: 'viewers#destroy'
-  end
 
   # Defines the root path route ("/")
   # root "articles#index"
@@ -30,7 +24,7 @@ Rails.application.routes.draw do
   #register
   # post '/register', to: 'sessions#create'
   post '/register', to: 'viewers#create'
-  post '/login', to: 'viewers#login'
+  post '/login', to: 'sessions#create'
 
   #viewerprofile
   # get '/viewer_profile/:id', to: 'viewers#show', as: 'viewer_profile'

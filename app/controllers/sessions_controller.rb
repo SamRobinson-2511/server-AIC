@@ -1,17 +1,19 @@
 class SessionsController < ApplicationController
+    skip_before_action :authorized_viewer, only:[:create]
     
     def create
-        @viewer = Viewer.find_by( email: params[:email])
-        if @viewer and @viewer.authenticate( params[:password ])
-            logged_viewer = JWT.encode( { viewer: @viewer.id }, ENV['JWT_TOKEN'])
-            render json: { vid: logged_viewer }, status: :ok
+        viewer = Viewer.find_by( email: params[:email])
+        if viewer&.authenticate( params[:password ])
+            # logged_viewer = JWT.encode( { viewer: @viewer.id }, ENV['JWT_TOKEN'])
+            # render json: { vid: logged_viewer }, status: :ok
+            session[:viewer_id] = viewer.id
         else
             render json: {errors: ['Invalid email or password']}, status: :unauthorized
         end
     end
 
     def register
-        @viewer = Viewer.create!(viewer_params)
+        viewer = Viewer.create!(viewer_params)
         render json: viewer 
     end
 
