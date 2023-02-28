@@ -1,31 +1,34 @@
 class ApplicationController < ActionController::API
-rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+    include ActionController::Cookies
+    rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
+    before_action :authorized_viewer
     
 
-    def welcome
-        render json: {welcome: 'hello world'}
-    end
-
-    def name
-        render json: {greeting: "Hello, #{params[:name]}"}
-    end
-
     def current_viewer
-        auth_token = request.headers['auth-token']
-        if auth_token
-            token = JWT.decode( auth_token, ENV['JWT_TOKEN'])[0]
-            return Viewer.find_by( id: token['viewer'])
-        else
-            return nil
-            render json: { message: ['No token found']}, status: :unprocessable_entity
-        end
+        viewer = Viewer.find_by(id:session[:viewer_id])
     end
 
-    def authorize!
-        unless current_viewer 
-            render json: { errors: ['You must be logged in to do that']}, status: :unauthorized
-        end
-    end
+    def authorized_viewer
+        render json:{error: "Not Authorized"}, status: :unauthorized unless current_user
+    end 
+
+    # def current_viewer
+    #     auth_token = request.headers['auth-token']
+    #     if auth_token
+    #         token = JWT.decode( auth_token, ENV['JWT_TOKEN'])[0]
+    #         return Viewer.find_by( id: token['viewer'])
+    #     else
+    #         return nil
+    #         render json: { message: ['No token found']}, status: :unprocessable_entity
+    #     end
+    # end
+
+    # def authorize!
+    #     unless current_viewer 
+    #         render json: { errors: ['You must be logged in to do that']}, status: :unauthorized
+    #     end
+    # end
 
     private 
     def record_not_found record

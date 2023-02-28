@@ -1,24 +1,18 @@
 class ViewersController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
+    skip_before_action :authorized_viewer, only:[:create, :show, :update]
     
     def show
+        debugger
         viewer = Viewer.find(params[:id])
         render json: viewer, status: 200
     end
     
     def create
         viewer = Viewer.create!(viewer_params)
+        session[:viewer_id] = viewer.id
         render json: viewer, status: :created
     end
-
-    def login
-        viewer = Viewer.find_by(email:params[:email])
-        if viewer && viewer.authenticate(params[:password])
-            render json: viewer, status: :ok
-        else 
-            render json: {errors: 'Incorrect Username or Password'}, status: :unauthorized
-        end 
-    end 
 
     def update 
         viewer = Viewer.find(params[:id])
