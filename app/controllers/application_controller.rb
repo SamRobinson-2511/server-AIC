@@ -10,7 +10,7 @@ class ApplicationController < ActionController::API
     end
 
     def authorized_viewer
-        render json:{error: "Not Authorized"}, status: :unauthorized unless current_user
+        render json:{error: "Not Authorized"}, status: :unauthorized unless current_viewer
     end 
 
     # def current_viewer
