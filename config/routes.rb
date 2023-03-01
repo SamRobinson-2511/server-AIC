@@ -14,6 +14,11 @@ Rails.application.routes.draw do
   patch 'gallery/:id/edit', to: 'galleries#update'
   delete 'galleries/:id', to: 'galleries#destroy'
 
+  #visits
+  get 'visits', to: 'visits#index'
+  get 'visits/:id', to: 'visits#show'
+  post 'visits/new', to: 'visits#create'
+
   # Defines the root path route ("/")
   # root "articles#index"
 
@@ -25,16 +30,16 @@ Rails.application.routes.draw do
   # post '/register', to: 'sessions#create'
   post '/register', to: 'viewers#create'
   post '/login', to: 'sessions#create'
+  delete '/logout', to: 'sessions#destroy'
 
   #viewerprofile
   # get '/viewer_profile/:id', to: 'viewers#show', as: 'viewer_profile'
 
 
   #fetch arts 
-  get 'arts', to: 'arts#index'
-  get 'arts/:id', to: 'arts#show'
+  
   # get '/:id/is_on_view', to: 'arts#is_on_view'
-  # post '/search_arts', to: 'arts#search_arts'
+  post '/search_arts', to: 'arts#search_arts'
   
 
 

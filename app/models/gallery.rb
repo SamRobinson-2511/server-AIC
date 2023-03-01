@@ -1,5 +1,5 @@
 class Gallery < ApplicationRecord
-  has_one :viewer
+  # has_one :viewer
   has_many :arts
 
   validates_presence_of :title, :description, :viewer_id

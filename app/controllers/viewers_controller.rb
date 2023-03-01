@@ -3,7 +3,6 @@ class ViewersController < ApplicationController
     skip_before_action :authorized_viewer, only:[:create, :show, :update]
     
     def show
-        debugger
         viewer = Viewer.find(params[:id])
         render json: viewer, status: 200
     end
@@ -22,12 +21,12 @@ class ViewersController < ApplicationController
 
     private
     def viewer_params
-        params.permit(:first_name, :last_name, :email, :password, :zip_code)
+        params.permit(:first_name, :last_name, :email, :password, :zip_code, :gallery_id)
     end
     
-    def render_unprocessable_entity invalid
-        render json: {errors:invalid.record.errors}, 
-        status: :unprocessable_entity
-    end
+    # def render_unprocessable_entity invalid
+    #     render json: {errors:invalid.record.errors}, 
+    #     status: :unprocessable_entity
+    # end
 end
 

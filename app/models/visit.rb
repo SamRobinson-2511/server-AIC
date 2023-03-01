@@ -1,4 +1,4 @@
 class Visit < ApplicationRecord
-  belongs_to :viewer, optional: true
-  belongs_to :art, optional: true 
+  belongs_to :viewer
+  belongs_to :art
 end

@@ -3,8 +3,9 @@ class ArtsController < ApplicationController
 
     def index
         fields = "title,artist_display,id,image_id,is_on_view"
-        response = JSON.parse(RestClient.get("https://api.artic.edu/api/v1/artworks?fields=#{fields}"))
-        render json: response['data'], status: :ok
+        response = JSON.parse(RestClient.get("https://api.artic.edu/api/v1/artworks?fields=#{fields}"))        
+        render json: response, status: :ok
+
     end
 
     def show
@@ -16,9 +17,11 @@ class ArtsController < ApplicationController
     def is_on_view
         fields = "[is_on_view]=true"
         response = JSON.parse(RestClient.get("https://api.artic.edu/api/v1/artworks?fields=#{fields}"))
-        if fields == true
         render json: response, status: :ok
-        end
+    end
+
+    def exhibitions
+        
     end
 
     # def on_view

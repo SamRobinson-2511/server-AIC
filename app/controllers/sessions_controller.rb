@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-    skip_before_action :authorized_viewer, only:[:create]
+    # skip_before_action :authorized_viewer, only:[:create]
     
     def create
         viewer = Viewer.find_by( email: params[:email])
@@ -18,8 +18,9 @@ class SessionsController < ApplicationController
     end
 
     def destroy
-        reset_session
-        render json: {status: 200, logged_out: true}
+        debugger
+        session.delete :viewer_id
+        head :no_content
     end
 
     private 
