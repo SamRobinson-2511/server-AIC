@@ -2,14 +2,14 @@ class ArtsController < ApplicationController
 
 
     def index
-        fields = "title,artist_display,id,image_id,is_on_view"
+        fields = "title,artist_display,id,image_id,gallery_title,artwork_type_title,[is_on_view]=true&[is_public_domain]=true"
         response = JSON.parse(RestClient.get("https://api.artic.edu/api/v1/artworks?fields=#{fields}"))
-        render json: response['data'], status: :ok
-    end
-
-    def images
-        # image_id = params[:image_id]
-        response = JSON.parse(RestClient.get("https://www.artic.edu/iiif/2/#{image_id}/full/843,/0/default.jpg"))
+        iiif_url = response['config'][0]
+        image = iiif_url
+        # response = response['data']
+        # image_id = response['image_id']
+        # images = JSON.parse(RestClient.get(("https://www.artic.edu/iiif/2/#{image_id}/full/843,/0/default.jpg")))
+        render json: response['data'], status: :ok 
     end
 
     def show
@@ -18,12 +18,10 @@ class ArtsController < ApplicationController
         render json: response['data'], status: :ok
     end
 
-    def is_on_view
-        fields = "[is_on_view]=true"
-        response = JSON.parse(RestClient.get("https://api.artic.edu/api/v1/artworks?fields=#{fields}"))
-        if fields == true
-        render json: response, status: :ok
-        end
+    def exhibitions 
+        fields = "title"
+        response = JSON.parse(RestClient).get("https://api.artic.edu/api/v1/exhibitions?fields=#{fields}")
+        render json: response['data'], status: :ok
     end
 
     # def on_view

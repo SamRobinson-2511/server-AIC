@@ -1,6 +1,7 @@
-Rails.application.routes.draw do
-  resources :arts, only: [:index, :show]
+# mount MiradorRails::Engine, at: MiradorRails::Engine.locales_mount_path
 
+Rails.application.routes.draw do
+  # resources :arts, only: [:index, :show]
   #viewers routes
   post '/viewers', to: 'viewers#create'
   patch '/viewers/:id/edit', to: 'viewers#update'
@@ -42,6 +43,8 @@ Rails.application.routes.draw do
   get 'arts', to: 'arts#index'
   get 'arts/:id', to: 'arts#show'
   get 'arts/images', to: 'arts#images'
+  get 'arts/exhibitions', to: 'arts#exhibitions'
+  get 'arts/details', to: 'arts#show'
   # get '/:id/is_on_view', to: 'arts#is_on_view'
   # post '/search_arts', to: 'arts#search_arts'
   

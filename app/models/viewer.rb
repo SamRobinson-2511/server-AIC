@@ -1,13 +1,11 @@
 class Viewer < ApplicationRecord
     has_secure_password
-    
+
     has_many :visits, dependent: :destroy
-    has_many :arts, through: :visits
+    
 
     has_many :galleries, dependent: :destroy
     has_many :arts, through: :galleries
-
-
 
     validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
     validates :first_name, presence: true, length: { in: 2..12 }

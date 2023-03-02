@@ -1,6 +1,7 @@
 class Gallery < ApplicationRecord
-  has_one :viewer
-  has_many :arts
+  belongs_to :viewer
+  belongs_to :art
+  
 
   validates_presence_of :title, :description, :viewer_id
   validates :title, uniqueness: true
