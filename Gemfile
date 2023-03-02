@@ -8,7 +8,8 @@ gem "rails", "~> 7.0.4", ">= 7.0.4.2"
 
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
-
+# install serializer 
+gem "active_model_serializers", "~> 0.10.13"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 

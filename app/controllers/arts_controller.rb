@@ -7,6 +7,11 @@ class ArtsController < ApplicationController
         render json: response['data'], status: :ok
     end
 
+    def images
+        # image_id = params[:image_id]
+        response = JSON.parse(RestClient.get("https://www.artic.edu/iiif/2/#{image_id}/full/843,/0/default.jpg"))
+    end
+
     def show
         id = "id"
         response = JSON.parse(RestClient.get("https://api.artic.edu/api/v1/artworks?fields=#{id}"))
