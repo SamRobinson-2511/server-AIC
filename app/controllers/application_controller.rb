@@ -2,15 +2,18 @@ class ApplicationController < ActionController::API
     include ActionController::Cookies
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
-    before_action :authorized_viewer
+    # before_action :authorized_viewer
     
 
-    def current_viewer
-        viewer = Viewer.find_by(id:session[:viewer_id])
-    end
+    # def current_viewer
+    #     viewer = Viewer.find_by(id:session[:viewer_id])
+    # end
 
     def authorized_viewer
-        render json:{error: "Not Authorized"}, status: :unauthorized unless current_viewer
+        current_viewer = Viewer.find_by(id: session[:viewer_id])
+        unless current_viewer 
+        render json: {errors: ['Not Authorized']}, status: :unauthorized
+        end
     end 
 
     # def current_viewer
@@ -31,7 +34,8 @@ class ApplicationController < ActionController::API
     # end
 
     private 
-    def record_not_found record
+
+    def record_not_found (record)
         render json: { errors: ["Sorry, #{record.model} was not found"]}, 
         status: :not_found
     end
