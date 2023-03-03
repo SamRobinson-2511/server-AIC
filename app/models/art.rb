@@ -1,6 +1,4 @@
 class Art < ApplicationRecord
-    has_many :visits
-    has_many :viewers, through: :visits
-    belongs_to :viewer
-    belongs_to :gallery
+    belongs_to :viewer, optional: true
+    belongs_to :gallery, optional: true
 end

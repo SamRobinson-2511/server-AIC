@@ -1,16 +1,12 @@
 require 'rest-client'
 
-
-
 #clearing database
 puts 'clearing database'
-# Gallery.destroy_all
+Gallery.destroy_all
+Art.destroy_all
 Viewer.destroy_all
+
 # Visit.destroy_all
-# Art.destroy_all
-puts 'database cleared'
-
-
 
 puts 'creating viewer'
 v1 = Viewer.create!(first_name: 'Sam', last_name: 'Robinson', password: '1234Test_', email: 'sam@sam.com', zip_code: '60608')
@@ -20,11 +16,18 @@ v4 = Viewer.create!(first_name: 'Rem', last_name: 'Robinson', password: '1234Tes
 v5 = Viewer.create!(first_name: 'Zeke', last_name: 'Robinson', password: '1234Test_', email: 'zeke@zeke.com', zip_code: '60647')
 puts 'viewers seeded'
 
-# puts 'creating arts'
-# a1 = Art.create!(title:'monday')
-# a2 = Art.create!(title:'tuesday')
-# a3 = Art.create!(title:'friday')
-# puts 'arts seeded'
+puts 'database cleared'
+
+puts 'creating arts'
+a1 = Art.create!(title:'monday')
+a2 = Art.create!(title:'tuesday')
+a3 = Art.create!(title:'friday')
+puts 'arts seeded'
+
+
+
+
+
 
 # puts 'seeding visits'
 # visit1 = Visit.create!(viewer_id: Viewer.first.id, date: 20221204, comment: 'eh', arts_id: Art.first.id)
@@ -33,5 +36,5 @@ puts 'viewers seeded'
 # puts 'visits seeded'
 
 puts 'seeding galleries'
-g1 = Gallery.create!(title: 'Modern', description:'modern french art', viewer_id: v1.id)
+g1 = Gallery.create!(title: 'Modern', description:'modern french art', viewer_id: v1.id, art_id: [a1.id, a2.id, a3.id])
 puts 'galleries seeded'

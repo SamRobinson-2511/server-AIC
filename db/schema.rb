@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_27_155055) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_02_224348) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "art_likes", force: :cascade do |t|
+    t.bigint "viewer_id", null: false
+    t.bigint "art_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["art_id"], name: "index_art_likes_on_art_id"
+    t.index ["viewer_id"], name: "index_art_likes_on_viewer_id"
+  end
 
   create_table "arts", force: :cascade do |t|
     t.string "title"
@@ -60,5 +69,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_155055) do
     t.index ["viewer_id"], name: "index_visits_on_viewer_id"
   end
 
+  add_foreign_key "art_likes", "arts"
+  add_foreign_key "art_likes", "viewers"
   add_foreign_key "visits", "viewers"
 end
