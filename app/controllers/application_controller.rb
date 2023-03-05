@@ -5,9 +5,9 @@ class ApplicationController < ActionController::API
     # before_action :authorized_viewer
     
 
-    # def current_viewer
-    #     viewer = Viewer.find_by(id:session[:viewer_id])
-    # end
+    def current_viewer
+        viewer = Viewer.find_by(id:session[:viewer_id])
+    end
 
     def authorized_viewer
         current_viewer = Viewer.find_by(id: session[:viewer_id])
@@ -15,6 +15,9 @@ class ApplicationController < ActionController::API
         render json: {errors: ['Not Authorized']}, status: :unauthorized
         end
     end 
+
+    
+
 
     # def current_viewer
     #     auth_token = request.headers['auth-token']
@@ -35,7 +38,7 @@ class ApplicationController < ActionController::API
 
     private 
 
-    def record_not_found (record)
+    def record_not_found record
         render json: { errors: ["Sorry, #{record.model} was not found"]}, 
         status: :not_found
     end
