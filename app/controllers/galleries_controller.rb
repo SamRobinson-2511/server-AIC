@@ -10,6 +10,17 @@ class GalleriesController < ApplicationController
         render json: gallery, status: :ok
     end
 
+    def arts
+        gallery = Gallery.find(params[:id])
+        arts = gallery.arts
+        if arts
+            render json: arts, status: :ok
+        elsif
+            arts.length = 0
+            render json: {message: ['Get Getting']}
+        end
+    end
+
     def create
         gallery = Gallery.create!(gallery_params)
         render json: gallery, status: :created
@@ -25,6 +36,13 @@ class GalleriesController < ApplicationController
         gallery = Gallery.find(params[:id])
         gallery.destroy
         head :no_content
+    end
+
+    def search
+        parameter = params[:search].downcase
+        debugger
+        response = Gallery.all.where("lower(name) LIKE :search", search:"%#{parameter}" )
+        render json: response, status: :ok
     end
 
     private 

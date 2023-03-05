@@ -13,6 +13,11 @@ class ViewersController < ApplicationController
     #     render json: viewer, status: :created
     # end
 
+    def viewer_profile
+        profile = "Welcome back, #{self.first_name}"
+        render json: profile, status: :ok
+    end
+
     def update 
         viewer = Viewer.find(params[:id])
         viewer.update!(viewer_params)
