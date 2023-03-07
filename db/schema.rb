@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_05_195518) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_02_224348) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -32,7 +32,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_05_195518) do
     t.string "artist_display"
     t.string "image_id"
     t.boolean "is_on_view"
-    t.boolean "like"
     t.index ["gallery_id"], name: "index_arts_on_gallery_id"
     t.index ["visits_id"], name: "index_arts_on_visits_id"
   end

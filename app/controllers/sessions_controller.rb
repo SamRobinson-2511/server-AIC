@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
         viewer = Viewer.find_by( email: params[:email])
         if viewer&.authenticate( params[:password])
             # logged_viewer = JWT.encode( { viewer: @viewer.id }, ENV['JWT_TOKEN'])
-            # render json: { vid: logged_viewer }, status: :ok
+            # render json: { uid: logged_viewer }, status: :ok
             session[:viewer_id] = viewer.id
             render json: {message: ['Logged In']}, status: :ok
         else
@@ -18,6 +18,10 @@ class SessionsController < ApplicationController
         head :no_content
     end
 
+    def show
+        session = Session.find!(params[:id])
+        render json: session
+    end
     private 
     def viewer_params
         params.require(:session).permit(:first_name, :last_name, :email, :password, :zip_code)

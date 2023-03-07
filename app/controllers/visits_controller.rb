@@ -12,7 +12,7 @@ class VisitsController < ApplicationController
 
     def create
         visit = Visit.create!(visit_params)
-        render json: visit, status: :created
+        render json: visit, status: 201
     end
 
     def update

@@ -18,6 +18,8 @@ puts 'viewers seeded'
 
 puts 'database cleared'
 
+
+
 puts 'creating arts'
 a1 = Art.create!(title:'monday')
 a2 = Art.create!(title:'tuesday')

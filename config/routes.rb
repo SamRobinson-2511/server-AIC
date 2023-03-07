@@ -1,7 +1,7 @@
 # mount MiradorRails::Engine, at: MiradorRails::Engine.locales_mount_path
 
 Rails.application.routes.draw do
-  resources :arts, only: [:index, :show] do
+  resources :arts, only: [:index] do
     resources :likes
   end
   #viewers routes
@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   patch '/viewers/:id/edit', to: 'viewers#update'
   delete '/viewers/:id/delete', to: 'viewers#destroy'
   get '/viewer_profile', to: 'viewers#profile'
+  get '/viewers', to: 'viewers#index'
+  get '/viewer', to: 'viewers#show'
   
   # galleries routes
   get 'galleries', to: 'galleries#index'
@@ -16,8 +18,8 @@ Rails.application.routes.draw do
   get 'galleries/:id/arts', to: 'galleries#arts'
   post 'galleries/new', to: 'galleries#create'
   patch 'gallery/:id/edit', to: 'galleries#update'
-  delete 'galleries/:id/destroy', to: 'galleries#destroy'
   post 'galleries/search', to: 'galleries#search'
+  delete 'galleries/:id', to: 'galleries#destroy'
   
 
   # visits routes
@@ -26,6 +28,7 @@ Rails.application.routes.draw do
   post 'visits/new', to: 'visits#create'
   patch 'visits/:id', to: 'visits#update'
   post 'visits/search', to: 'visits#search'
+  delete 'visits/:id', to: 'visits#destroy'
 
   # Defines the root path route ("/")
   # root "articles#index"
@@ -39,21 +42,22 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#login'
   post '/register', to: 'viewers#register'
   get '/session', to: 'sessions#show'
-  delete '/logout', to: 'sessions#destroy', as: 'logout'
+  delete '/logout', to: 'sessions#destroy'
 
   #viewerprofile
   # get '/viewer_profile/:id', to: 'viewers#show', as: 'viewer_profile'
 
 
   #fetch arts 
-  # get 'arts', to: 'arts#index'
-  # get 'arts/:id', to: 'arts#show'
-  get 'arts/:image_id/images', to: 'arts#images'
+  get '/arts', to: 'arts#index'
+  get '/arts/:id', to: 'arts#show'
+  post 'arts/:image_id', to: 'arts#images'
   get 'arts/exhibitions', to: 'arts#exhibitions'
   # get 'arts/:id/details', to: 'arts#show'
   get 'arts/search', to: 'arts#search'
   # get '/:id/is_on_view', to: 'arts#is_on_view'
   # post '/search_arts', to: 'arts#search_arts'
+  
 
   
   
