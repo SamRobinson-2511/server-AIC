@@ -1,4 +1,5 @@
 class GalleriesController < ApplicationController
+    skip_before_action :authorized_viewer, only:[:create, :show, :index, :update]
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
     
     def index
@@ -10,16 +11,22 @@ class GalleriesController < ApplicationController
         render json: gallery, status: :ok
     end
 
-    def arts
+    def add_art
         gallery = Gallery.find(params[:id])
-        arts = gallery.arts
-        if arts
-            render json: arts, status: :ok
-        elsif
-            arts.length = 0
-            render json: {message: ['Get Getting']}
-        end
+        render json: new_art, status: :created
+
     end
+
+    # def arts
+    #     gallery = Gallery.find(params[:id])
+    #     arts = gallery.arts
+    #     if arts
+    #         render json: arts, status: :ok
+    #     elsif
+    #         arts.length = 0
+    #         render json: {message: ['Get Getting']}
+    #     end
+    # end
 
     def create
         gallery = Gallery.create!(gallery_params)

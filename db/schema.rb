@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_05_195518) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_09_103954) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_05_195518) do
     t.bigint "art_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "like"
     t.index ["art_id"], name: "index_art_likes_on_art_id"
     t.index ["viewer_id"], name: "index_art_likes_on_viewer_id"
   end
@@ -32,7 +33,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_05_195518) do
     t.string "artist_display"
     t.string "image_id"
     t.boolean "is_on_view"
-    t.boolean "like"
     t.index ["gallery_id"], name: "index_arts_on_gallery_id"
     t.index ["visits_id"], name: "index_arts_on_visits_id"
   end
@@ -59,18 +59,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_05_195518) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "visits", force: :cascade do |t|
-    t.bigint "viewer_id", null: false
-    t.date "date"
-    t.text "comment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "art_id"
-    t.index ["art_id"], name: "index_visits_on_art_id"
-    t.index ["viewer_id"], name: "index_visits_on_viewer_id"
-  end
-
   add_foreign_key "art_likes", "arts"
   add_foreign_key "art_likes", "viewers"
-  add_foreign_key "visits", "viewers"
 end
