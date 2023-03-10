@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-    skip_before_action :authorized_viewer, only:[:login, :destroy, :index, :show]
+    skip_before_action :authorized_viewer, only:[:create, :login, :destroy, :index, :show]
     
     def login
         viewer = Viewer.find_by( email: params[:email])
@@ -22,8 +22,8 @@ class SessionsController < ApplicationController
         session = Session.find!(params[:id])
         render json: session
     end
-    private 
-    def viewer_params
-        params.require(:session).permit(:first_name, :last_name, :email, :password, :zip_code)
-    end
+    # private 
+    # def viewer_params
+    #     params.require(:session).permit(:first_name, :last_name, :email, :password, :zip_code)
+    # end
 end

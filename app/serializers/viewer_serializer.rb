@@ -2,7 +2,7 @@
 
 class ViewerSerializer < ActiveModel::Serializer
   attributes :id, :first_name, :last_name, :zip_code
-  has_many :galleries
+  # has_many :galleries
   has_many :arts
 
 end
