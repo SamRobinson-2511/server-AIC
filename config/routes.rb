@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   resources :viewers, only: [:index, :show]
-  resources :galleries, only: [:index, :show]
+  # resources :galleries, only: [:index, :show, :create]
   resources :arts, only: [:index, :show]
 
   #viewers routes
@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'viewer_profile', to: 'viewers#profile'
   get 'viewers', to: 'viewers#index'
   get 'me', to: 'viewers#show'
+  get '/authorized', to: 'viewers#show'
   
   # galleries routes
   get 'galleries', to: 'galleries#index'

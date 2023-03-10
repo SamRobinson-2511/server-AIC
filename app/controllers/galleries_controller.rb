@@ -14,7 +14,6 @@ class GalleriesController < ApplicationController
     def add_art
         gallery = Gallery.find(params[:id])
         render json: new_art, status: :created
-
     end
 
     # def arts
@@ -45,16 +44,15 @@ class GalleriesController < ApplicationController
         head :no_content
     end
 
-    def search
-        parameter = params[:search].downcase
-        debugger
-        response = Gallery.all.where("lower(name) LIKE :search", search:"%#{parameter}" )
-        render json: response, status: :ok
-    end
+    # def search
+    #     parameter = params[:search].downcase
+    #     response = Gallery.all.where("lower(name) LIKE :search", search:"%#{parameter}" )
+    #     render json: response, status: :ok
+    # end
 
     private 
     def gallery_params
-        params.require(:gallery).permit(:title, :description, :viewer_id, :art_id)
+        params.permit(:title, :description, :viewer_id)
     end
     
     def render_unprocessable_entity invalid
