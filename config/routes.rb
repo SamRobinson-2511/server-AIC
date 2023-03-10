@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   get 'galleries/:id/arts', to: 'galleries#arts'
   post 'galleries', to: 'galleries#create'
   post 'galleries/:id/add_art', to: 'galleries#add_art'
-  patch 'galleries/:id/edit', to: 'galleries#update'
+  patch 'galleries/:id', to: 'galleries#update'
   post 'galleries/search', to: 'galleries#search'
   delete 'galleries/:id', to: 'galleries#destroy'
   
