@@ -1,6 +1,6 @@
 class Gallery < ApplicationRecord
-  belongs_to :viewer
-  belongs_to :art
+  belongs_to :viewer, optional: true
+  belongs_to :art, optional: true
   
 
   # validates_presence_of :title, :description
