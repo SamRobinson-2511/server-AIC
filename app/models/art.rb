@@ -1,8 +1,9 @@
 class Art < ApplicationRecord
-    include Filterable
-    
-    belongs_to :viewer, optional: true
-    belongs_to :gallery, optional: true
+    # include Filterable
+    has_many :galleries
+    has_many :viewers, through: :galleries
+
+    # has_many :likes, dependent: :destroy
 
     # self.per_page = 20
 

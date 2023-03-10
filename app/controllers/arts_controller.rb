@@ -22,18 +22,21 @@
 
 
 class ArtsController < ApplicationController
+    skip_before_action :authorized_viewer, only:[:create, :show, :index, :update]
 
     def index
-        fields = "title,artist_display,id,image_id,[gallery_title]=true,artwork_type_title,category_titles,[is_on_view]=true&[is_public_domain]=true"
+        fields = "title,artist_display,id,image_id,[gallery_title]=true,artwork_type_title,category_titles,[is_on_view]=true&[is_public_domain]=true,department_title"
         art = JSON.parse(RestClient.get("https://api.artic.edu/api/v1/artworks?fields=#{fields}"))
-        @art = Art.paginate(page: params[:page], per_page: params[:per_page])
+        # response = JSON.parse(RestClient.get("https://www.artic.edu/iiif/2/#{image_id}/full/843,/0/default.jpg"))
+        
+        # @art = Art.paginate(page: params[:page], per_page: params[:per_page])
         render json: art['data'], status: :ok
     end
 
     def images
         image_id = params[:image_id]
         response = JSON.parse(RestClient.get("https://www.artic.edu/iiif/2/#{image_id}/full/843,/0/default.jpg"))
-        render json: image_id, status: :ok
+        render json: response, status: :ok
     end
 
     def show
@@ -48,6 +51,10 @@ class ArtsController < ApplicationController
         if fields == true
         render json: response, status: :ok
         end
+    end
+
+    def category
+        category = JSON.parse(RestClient.get())
     end
 
     def on_view
@@ -73,4 +80,5 @@ class ArtsController < ApplicationController
         art = JSON.parse(RestClient.get("https://api.artic.edu/api/v1/artworks/#{fields}/search?q=#{search}"))
         render json: art, status: :ok
     end
+
 end

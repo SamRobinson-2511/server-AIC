@@ -2,13 +2,15 @@ class ViewersController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
     skip_before_action :authorized_viewer, only:[:register, :create, :show, :index, :update]
     
-    def show
-        viewer = Viewer.find(session[:viewer_id])
-        render json: viewer, status: 200
-    end
+ 
 
     def index
         render json: Viewer.all, status: :ok
+    end
+
+    def show
+        viewer = Viewer.find(params[:id])
+        render json: viewer, status: 200
     end
 
     

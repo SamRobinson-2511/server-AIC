@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-    skip_before_action :authorized_viewer, only:[:login, :destroy]
+    skip_before_action :authorized_viewer, only:[:login, :destroy, :index, :show]
     
     def login
         viewer = Viewer.find_by( email: params[:email])
@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
             # logged_viewer = JWT.encode( { viewer: @viewer.id }, ENV['JWT_TOKEN'])
             # render json: { uid: logged_viewer }, status: :ok
             session[:viewer_id] = viewer.id
-            render json: {message: ['Logged In']}, status: :ok
+            render json: viewer, status: :ok
         else
             render json: {errors: ['Invalid email or password']}, status: :unauthorized
         end
